@@ -1,0 +1,99 @@
+body{
+    background-color: rgb(23, 21, 21);
+    margin: 0;
+}
+
+h1{
+    text-align: center;
+    background-color: white;
+    margin-top: 0%;
+}
+
+.contenedor{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2%; 
+}
+
+.card{
+    display: inline-flex;
+    background-color: rgb(70, 61, 61);
+    border-radius: 5px;
+    width: 650px;
+    max-height: 220px;
+    margin-bottom: 4%;
+    margin: 2%;
+}
+
+.card-l{
+    width: 220%;
+    height: 220%;
+}
+
+.ima{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    max-width: 220px;
+    max-height: 220px;    
+}
+
+.card-r{
+    text-align: left;
+    color: white;
+    align-content: flex-start;
+    margin: 5%;
+
+    max-height: 300px;
+    min-width: 250px;
+    min-height: 50px;
+}
+
+
+.p1{
+    font: 20px sans-serif;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.p2{
+    font: 15px;
+    margin-top: 2%;
+    margin-bottom: 10%;
+}
+
+.p3{
+    color:rgb(165, 163, 163);
+    font: 10px;
+    margin-top: 0%;
+    margin-bottom: 3%;
+}
+
+.p4{
+    font: 15px;
+    margin-top: 0;
+    margin-bottom: 6%;
+}
+
+.circulo{
+    width:10px;
+    height:10px;
+    border-radius: 50%;
+    background-color: #bbb;
+    display: inline-block;
+}
+
+.divB{
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+#butP, #butN{
+    margin:2%;
+}
+
+.card:hover{
+    background-color:black;
+}

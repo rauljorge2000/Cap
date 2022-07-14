@@ -1,0 +1,96 @@
+body {
+    margin: 0;
+}
+
+header {
+    padding: 3px;
+    margin: 0;
+    background-color: #0d253f;
+    color: white;
+    justify-content: left;
+    align-content: center;
+}
+
+.div1_header{
+    align-content: center;
+    margin: 3px;
+}
+
+.img1{
+    width: 180px;
+    height: 30px;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    display:inline-block;
+    width: 50%;
+}
+
+nav div{
+    float:left;
+    margin-left: 10%;
+    margin-bottom: 4px;
+}
+
+.div2_search{
+    background-color: #01b4e4;
+    color: white;
+    width: 100%;
+    height: 100%;
+    padding: 1%;
+}
+
+.search1{
+    margin-top: 1%;
+    margin-bottom: 2%;
+}
+
+.div3_trending{
+    background: white;
+    color: black;
+    padding: 1%;
+}
+
+
+
+
+.c_trendin{
+    display: flex;
+    overflow: auto;
+    justify-content: center;
+    align-items: flex-start;
+    /*display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%; */
+}
+
+.t_film{
+    width: 250px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.film_poster{
+    width: 220px;
+    height: 330px;
+    margin: 3%;
+}
+
+
+
+
+
+
+footer{
+    background-color: #0d253f;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+}
