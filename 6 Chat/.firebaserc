@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "el-mejor-chat-del-mundo-b958f": {
+      "hosting": {
+        "app": [
+          "el-mejor-chat-del-mundo-b958f"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "el-mejor-chat-del-mundo-b958f"
+  }
+}

@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Chat
+      <ion-icon name="log-out-outline" (click)="out()"></ion-icon>  
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div>
+  <span>Peris</span>
+  <p>Mensaje</p>
+</div>
+
+<input type="text" name="message" 
+      [(ngModel)]="message" 
+      (keyup.enter)="sendMessage()" 
+      placeholder="Write a message">
+      
