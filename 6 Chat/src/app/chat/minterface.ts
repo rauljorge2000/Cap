@@ -1,6 +1,6 @@
 export interface Minterface {
     name: string;
-    uid: number;
+    mid: number;
     message: string;
     date?: Date;
 }

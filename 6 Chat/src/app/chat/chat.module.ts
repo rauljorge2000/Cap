@@ -12,8 +12,6 @@ import { AppRoutingModule } from './app_roting.module';
 import { AuthService } from '../services/auth.service';
 import { MessagesService } from '../services/messages.service';
 
-//interface
-// import { Minterface } from './minterface';
 
 @NgModule({
   declarations: [

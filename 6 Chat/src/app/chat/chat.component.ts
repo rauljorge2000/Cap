@@ -21,7 +21,7 @@ export class ChatComponent implements OnInit {
 
   message: string = "";
   constructor(private router : Router, private auth: AuthService, public mService: MessagesService) {  
-
+    
   }
 
   ngOnInit() {}
@@ -32,6 +32,7 @@ export class ChatComponent implements OnInit {
   }  
   sendMessage() {
     console.log(this.message);
+    this.mService.writeMessage(this.auth.auth.currentUser.uid, this.message, Date.now());
     [this.message] = "";
   }
 }
