@@ -2,20 +2,12 @@ import { Injectable } from '@angular/core';
 
 // import { Firestore, collection, docData, addDoc } from '@angular/fire/firestore';
 
-import { getAuth } from 'firebase/auth';
 import { Observable } from 'rxjs'; 
-import { Database, objectVal, ref, set, getDatabase} from '@angular/fire/database';
+import { map } from 'rxjs/operators';
+import { Database, objectVal, ref, set, getDatabase, get, child, onValue, onChildAdded} from '@angular/fire/database';
 import { traceUntilFirst } from '@angular/fire/performance';
 
-//service
-import {AuthService} from '../services/auth.service';
 
-//interface
-import { Minterface } from '../chat/minterface';
-
-import { FirebaseApp } from '@angular/fire/app';
-
-// import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 
 @Injectable({
   providedIn: 'root'
@@ -24,28 +16,62 @@ export class MessagesService {
 
   message: string ="";
 
-  public readonly dataObserver$: Observable<any>;
+
+  constructor(private database: Database) { 
+    let list = [];
+    const db = getDatabase();
+    const mRef = ref(db, '/messages');
+      onChildAdded(mRef, (data) => {
+        // this.writeMessage( data.val().message, data.val().name, data.key);
+        console.log( data.val().message, data.val().name, data.key);
+        list.push([data.val().name, data.val().message, data.key]);
+      });
+      console.log(list);
+
+    // const dbRef = ref(db, '/messages');
+    // onValue(dbRef, (snapshot) => {
+    //   snapshot.forEach((childSnapshot) => {
+    //     const childKey = childSnapshot.key;
+    //     const childData = childSnapshot.val();
+    //     // ...
+    //     console.log(childSnapshot.val().message);
+    //     list.push([childSnapshot.key, childSnapshot.val().name, childSnapshot.val().message]);
+    //   });
+    // }, {
+    //   onlyOnce: true
+    // });
+    // console.log(list);
   
 
-  constructor(private auth: AuthService, private database: Database, private app: FirebaseApp) { 
-    // database = getDatabase(app);
-    // this.dataObserver$ = database.list('dataObserver').valueChanges();
-    // const ob = Observable<Database>
-    const doc = ref(database, 'data');
-    this.dataObserver$ = objectVal(doc).pipe(
-      traceUntilFirst('database')
-    );
+
+    // const mRef = ref(db, '/messages');
+    // onChildAdded(mRef, (data) => {
+    //   this.writeMessage( data.val().message, data.val().name, data.key);
+    //   console.log( data.val().message, data.val().name, data.key);
+    //   // this.list.push([data.val().message, data.val().name, data.key]);
+    // });
+    
+
+
+    // const dbRef = ref(getDatabase());
+    // get(child(dbRef, `messages/`)).then((snapshot) => {
+    //   if (snapshot.exists()) {
+    //     const list = snapshot.val();
+    //     console.log(list);
+    //   } else {
+    //     console.log("No data available");
+    //   }
+    // }).catch((error) => {
+    //   console.error(error);
+    // });
   }
 
-  public writeMessage(hname, hmessage, hdate) {
-    const db = getDatabase();
-    set(ref(db, 'messages/' + hdate), {
+  public writeMessage(hdate,hname, hmessage) {
+    // list.push([hdate, hname, hmessage]);
+    set(ref(this.database, 'messages/' + hdate), {
       name: hname,
       message: hmessage,
       date : hdate
     });
   }
-
-
-  
 }

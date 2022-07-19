@@ -8,15 +8,23 @@
   </ion-toolbar>
 </ion-header>
 
-<div>
+<div class="mDiv">
+
+  <ul>
+    <li *ngFor="let l of list">
+      {{l}}
+    </li>
+  </ul>
+
   <span>Peris</span>
   <p>Mensaje</p>
 </div>
 
-<input type="text" name="message" 
-      [(ngModel)]="message" 
-      (keyup.enter)="sendMessage()" 
-      placeholder="Write a message">
+<div class="iANDb">
+  <input type="text" name="message" 
+        [(ngModel)]="message" 
+        (keyup.enter)="sendMessage()" 
+        placeholder="Write a message">
 
-<button (click)="sendMessage()">Send</button>
-      
+  <button (click)="sendMessage()">Send</button>
+</div> 

@@ -12,6 +12,8 @@ import { AppRoutingModule } from './app_roting.module';
 import { AuthService } from '../services/auth.service';
 import { MessagesService } from '../services/messages.service';
 
+import { FirebaseAppModule, provideFirebaseApp } from '@angular/fire/app';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { MessagesService } from '../services/messages.service';
   imports: [
     CommonModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    FirebaseAppModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthService, MessagesService],
 })

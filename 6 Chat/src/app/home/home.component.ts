@@ -13,8 +13,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {}
 
-  login() {
-     this.auth.signInWithGoogle();
+  async login() {
+     await this.auth.signInWithGoogle();
      this.router.navigate(['chat']);
   }
 }

@@ -20,6 +20,7 @@ import { getAuth } from 'firebase/auth';
 export class ChatComponent implements OnInit {
 
   message: string = "";
+
   constructor(private router : Router, private auth: AuthService, public mService: MessagesService) {  
     
   }
@@ -30,9 +31,14 @@ export class ChatComponent implements OnInit {
     this.auth.signOutOfGoogle();
     this.router.navigate(['home']);
   }  
+  
   sendMessage() {
-    console.log(this.message);
-    this.mService.writeMessage(this.auth.auth.currentUser.uid, this.message, Date.now());
-    [this.message] = "";
+    if(this.message == "") {
+      alert("No se puede enviar un mensaje sin texto.");
+    } else {
+      console.log(this.message);
+      this.mService.writeMessage(new Date(), this.auth.auth.currentUser.displayName, this.message);
+      this.message = "";
+    }
   }
 }
