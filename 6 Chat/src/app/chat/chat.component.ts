@@ -19,11 +19,10 @@ import { getAuth } from 'firebase/auth';
 })
 export class ChatComponent implements OnInit {
 
-  message: string = "";
+  private message: string = "";
 
-  constructor(private router : Router, private auth: AuthService, public mService: MessagesService) {  
-    
-  }
+  constructor(private router : Router, private auth: AuthService, 
+              public mService: MessagesService) {  }
 
   ngOnInit() {}
 
@@ -37,7 +36,7 @@ export class ChatComponent implements OnInit {
       alert("No se puede enviar un mensaje sin texto.");
     } else {
       console.log(this.message);
-      this.mService.writeMessage(new Date(), this.auth.auth.currentUser.displayName, this.message);
+      this.mService.writeMessage(new Date(), getAuth().currentUser.displayName, this.message);
       this.message = "";
     }
   }

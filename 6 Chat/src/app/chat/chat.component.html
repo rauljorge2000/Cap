@@ -1,30 +1,36 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Chat
+      <div class="divTitle">
+        <span>Chat</span>
       <ion-icon name="log-out-outline" (click)="out()"></ion-icon>  
-
+      </div>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<div class="mDiv">
+<h1>Chat Room</h1>
 
-  <ul>
-    <li *ngFor="let l of list">
-      {{l}}
-    </li>
-  </ul>
 
-  <span>Peris</span>
-  <p>Mensaje</p>
+<div class="cDiv">
+    <div class="mDiv" *ngFor="let l of mService.list">
+      
+      <div *ngIf="l[0] == mService.this.auth.auth.currentUser.displayName">
+        <!-- <p class="mP">{{l[2]}}</p> -->
+        <p class="mP">{{l[0]}}</p>
+        <span class="mSpan">{{l[1]}}</span>
+      </div>
+    
+
+    </div>
 </div>
 
+
 <div class="iANDb">
+  <ion-icon size="large" name="camera"></ion-icon>
   <input type="text" name="message" 
         [(ngModel)]="message" 
         (keyup.enter)="sendMessage()" 
         placeholder="Write a message">
-
   <button (click)="sendMessage()">Send</button>
 </div> 
