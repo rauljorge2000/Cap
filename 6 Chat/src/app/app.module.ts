@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { initializeApp } from 'firebase/app';
 import { FirebaseAppModule, provideFirebaseApp } from '@angular/fire/app';
 import {DatabaseModule} from '@angular/fire/database';
+import { GuardianGuard } from './guardian.guard';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import {DatabaseModule} from '@angular/fire/database';
     DatabaseModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, GuardianGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

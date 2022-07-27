@@ -10,7 +10,7 @@ export class MessagesService {
 
   message: string ="";
   private list: any[] = [];
-  private auth = getAuth();
+  private auth= getAuth();
 
   constructor(private database: Database) { 
     const db = getDatabase();
@@ -23,11 +23,11 @@ export class MessagesService {
       // console.log(getAuth().currentUser.displayName);
   }
 
-  public writeMessage(hdate,hname, hmessage) {
+  public writeMessage(hdate, hname, hmessage) {
     set(ref(this.database, 'messages/' + hdate), {
       name: hname,
       message: hmessage,
-      date : hdate
+      date : hdate,
     });
   }
 }

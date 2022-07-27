@@ -11,6 +11,7 @@ import { MessagesService } from '../services/messages.service';
 //interface
 import { Minterface } from '../chat/minterface';
 import { getAuth } from 'firebase/auth';
+import { BrowserStack } from 'protractor/built/driverProviders';
 
 @Component({
   selector: 'app-chat',
@@ -35,9 +36,17 @@ export class ChatComponent implements OnInit {
     if(this.message == "") {
       alert("No se puede enviar un mensaje sin texto.");
     } else {
-      console.log(this.message);
-      this.mService.writeMessage(new Date(), getAuth().currentUser.displayName, this.message);
+      let dateString = new Date().getFullYear() + "_" + new Date().getMonth() + "_" + 
+                       new Date().getDate() + " " + new Date().getHours() + ":" + 
+                       new Date().getMinutes() + ":" + new Date().getSeconds();
+      this.mService.writeMessage( dateString, getAuth().currentUser.displayName, this.message);
       this.message = "";
     }
+  }
+
+  loadData($event) {
+    setTimeout(() => {
+      $event.target.complete();
+    }, 1000);
   }
 }

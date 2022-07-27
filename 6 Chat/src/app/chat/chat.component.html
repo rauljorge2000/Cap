@@ -12,18 +12,37 @@
 <h1>Chat Room</h1>
 
 
-<div class="cDiv">
-    <div class="mDiv" *ngFor="let l of mService.list">
-      
-      <!-- <div *ngIf="l[0] == mService.this.auth.auth.currentUser.displayName"> -->
-        <!-- <p class="mP">{{l[2]}}</p> -->
-        <p class="mP">{{l[0]}}:</p>
-        <span class="mSpan">{{l[1]}}</span>
-      <!-- </div> -->
-    
-
+<ion-content>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <ion-list>
+    <div class="cDiv">
+      <div *ngFor="let l of mService.list">
+        <div class="mRight" *ngIf="l[0] == auth.auth.currentUser.displayName">
+          <p class="mP">{{l[0]}}:</p>
+          <span class="mSpan">{{l[1]}}</span>
+        </div>
+        <div class="mLeft"*ngIf="l[0] !== auth.auth.currentUser.displayName">
+          <p class="mP">{{l[0]}}:</p>
+          <span class="mSpan">{{l[1]}}</span>
+        </div>
+      </div>
     </div>
-</div>
+  </ion-list>
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+</ion-content>
+
+
+
 
 
 <div class="iANDb">
