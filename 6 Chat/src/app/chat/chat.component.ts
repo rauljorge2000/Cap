@@ -47,6 +47,7 @@ export class ChatComponent implements OnInit {
   loadData($event) {
     setTimeout(() => {
       $event.target.complete();
+      this.mService.loadMoreData();
     }, 1000);
   }
 }
