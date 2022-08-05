@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Database, ref, set, getDatabase, onChildAdded, query, limitToLast, limitToFirst, startAfter} from '@angular/fire/database';
+import { Database, ref, set, getDatabase, onChildAdded, query, limitToLast, 
+  limitToFirst, startAfter, orderByKey } from '@angular/fire/database';
 import { getAuth } from 'firebase/auth';
-import { endBefore, orderByKey } from 'firebase/database';
-import {AuthService} from '../services/auth.service';
+import { endBefore } from 'firebase/database';
+
 
 
 @Injectable({
@@ -12,41 +13,47 @@ export class MessagesService {
 
   message: string ="";
   private list: any[] = [];
-  private auth= getAuth();
-  private index = "";
+  private auth = getAuth();
 
+  private index = 10;
+  private claveIndex = "";
+  private auxLast;
+  
   constructor(private database: Database) { 
-    const db = getDatabase();
-    const mRef = ref(db, '/messages');
-    const recentPostsRef = query(mRef, limitToLast(10), orderByKey());
-      onChildAdded(recentPostsRef, (data) => {
-        //console.log( data.val().message, data.val().name, data.key);
-        this.list.push([data.val().name, data.val().message, data.key]);
-        this.index = data.key;
-        console.log(this.index);
-      });
-      // console.log(this.list);
-      // console.log(getAuth().currentUser.displayName);
+    this.loadData();
   }
 
-  public writeMessage(hdate, hname, hmessage) {
-    set(ref(this.database, 'messages/' + hdate), {
-      name: hname,
-      message: hmessage,
-      date : hdate,
+  public writeMessage(block) {
+    set(ref(this.database, 'messages/' + block.date), {
+      name: block.name,
+      message: block.message,
+      date : block.date,
     });
   }
 
-  public loadMoreData() {
+  // public loadData() {
+  //   const db = getDatabase();
+  //   const mRef = ref(db, '/messages');
+  //   this.index += 10;
+  //   this.list = [];
+  //   const recentPostsRef = query(mRef, limitToLast(this.index), orderByKey());
+  //     onChildAdded(recentPostsRef, (data) => {
+  //       // console.log( data.val().message, data.val().name, data.key);
+  //       this.list.push([data.val().name, data.val().message, data.key]);
+  //       // console.log('c ' + this.index);
+  //     });
+  // }
+
+  public loadData() {
     const db = getDatabase();
     const mRef = ref(db, '/messages');
-    const recentPostsRef = query(mRef, limitToLast(10), startAfter(20));
-      onChildAdded(recentPostsRef, (data) => {
-        console.log( data.val().message, data.val().name, data.key);
-        this.list.push([data.val().name, data.val().message, data.key]);
-        this.index = data.key;
-        console.log('c ' + this.index);
+    this.list = [];
 
-      });
+    const recentPostsRefNine = query(mRef, limitToLast(this.index));
+    onChildAdded(recentPostsRefNine, (data) => {
+      this.list.push([data.val().name, data.val().message, data.key]);
+    });
+    this.index += 10;
+    console.log(this.list);
   }
 }

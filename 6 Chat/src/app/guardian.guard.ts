@@ -15,9 +15,9 @@ export class GuardianGuard implements CanActivateChild {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if(getAuth().currentUser == null) {
-      this.router.navigate(['home']);
-      alert("No se puede acceder al chat sin iniciar sesión.");
-      return false;
+      // this.router.navigate(['home']);
+      // alert("No se puede acceder al chat sin iniciar sesión.");
+      // return false;
     }
     return true;
   }
