@@ -1,23 +1,18 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable, ViewChild } from '@angular/core';
 import { Database, ref, set, getDatabase, onChildAdded, query, limitToLast, 
-  limitToFirst, startAfter, orderByKey } from '@angular/fire/database';
+        orderByKey } from '@angular/fire/database';
 import { getAuth } from 'firebase/auth';
-import { endBefore } from 'firebase/database';
-
-
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class MessagesService {
 
   message: string ="";
   private list: any[] = [];
   private auth = getAuth();
-
   private index = 10;
-  private claveIndex = "";
-  private auxLast;
   
   constructor(private database: Database) { 
     this.loadData();
@@ -49,7 +44,7 @@ export class MessagesService {
     const mRef = ref(db, '/messages');
     this.list = [];
 
-    const recentPostsRefNine = query(mRef, limitToLast(this.index));
+    const recentPostsRefNine = query(mRef, limitToLast(this.index), orderByKey());
     onChildAdded(recentPostsRefNine, (data) => {
       this.list.push([data.val().name, data.val().message, data.key]);
     });
