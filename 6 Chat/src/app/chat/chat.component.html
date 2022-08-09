@@ -21,12 +21,13 @@
   </ion-infinite-scroll>
   
   <!-- <ion-list> -->
-    <div class="cDiv">
+    <div class="cDiv">l
       <div *ngFor="let l of mService.list">
         <div [ngClass]="{'mRight': l[0] == auth.auth.currentUser.displayName,
                         'mLeft' : l[0] !== auth.auth.currentUser.displayName }">
           <p class="mP">{{l[0]}}:</p>
-          <span class="mSpan">{{l[1]}}</span>
+          <p class="mSpan">{{l[1]}}</p>
+          <!-- <span class="mP">{{l[2]}}</span> -->
         </div>
       </div>
     </div>
