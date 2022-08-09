@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app_roting.module';
 import { AuthService } from '../services/auth.service';
 import { MessagesService } from '../services/messages.service';
 
-import { FirebaseAppModule, provideFirebaseApp } from '@angular/fire/app';
+import { FirebaseAppModule } from '@angular/fire/app';
 
 
 @NgModule({

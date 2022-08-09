@@ -14,7 +14,7 @@ import { HomeComponent } from './home/home.component';
 //modules
 import { initializeApp } from 'firebase/app';
 import { FirebaseAppModule, provideFirebaseApp } from '@angular/fire/app';
-import {DatabaseModule} from '@angular/fire/database';
+import { DatabaseModule} from '@angular/fire/database';
 import { GuardianGuard } from './guardian.guard';
 
 

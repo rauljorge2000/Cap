@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { environment } from 'src/environments/environment'; 
-
 import { Observable } from 'rxjs';
 
 // Import the functions you need from the SDKs you need
@@ -11,14 +9,11 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 import { Auth, authState, getAuth, User, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut } from '@angular/fire/auth';
-
 import { FirebaseApp } from '@angular/fire/app';
-
 
 @Injectable({
   providedIn: 'root'
 })
-
 
 export class AuthService {
 
@@ -26,7 +21,6 @@ export class AuthService {
   private provider = new GoogleAuthProvider();
   public readonly user: Observable<User | null>;
   userData?: User;
-
 
   constructor(private route : Router, private app: FirebaseApp) {
     app = initializeApp(environment.firebaseConfig);
@@ -44,11 +38,6 @@ export class AuthService {
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
-
-    // console.log(user);
-    // console.log(this.auth);
-
-    // ...
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
@@ -57,10 +46,13 @@ export class AuthService {
     const email = error.customData.email;
     // The AuthCredential type that was used.
     const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
   }); 
 
+  async signOutOfGoogle() {
+    return await signOut(this.auth);
+  }
 
+  
   // public signInRedirecting = () => signInWithRedirect(this.auth, this.provider);
 
 
@@ -92,9 +84,5 @@ export class AuthService {
   // async signInWithGoogle() {
   //   return await signInWithPopup(this.auth, new GoogleAuthProvider());
   // }
-
-  async signOutOfGoogle() {
-    return await signOut(this.auth);
-  }
 }
 
