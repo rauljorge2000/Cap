@@ -17,7 +17,13 @@ export class MessagesService {
   private recentPosts;
 
   constructor(private database: Database) { 
-    this.loadData();
+    // this.loadData();
+    this.list = [];
+    this.recentPosts = query(this.mRef, limitToLast(this.index), orderByKey());
+    onChildAdded(this.recentPosts, (data) => {
+      this.list.push([data.val().name, data.val().message, data.key, data.val().location]);
+    });
+    this.index += 10;
   }
 
   public async writeMessage(block) {
@@ -30,6 +36,7 @@ export class MessagesService {
   }
 
   public loadData() {
+    off(this.recentPosts);
     this.list = [];
     this.recentPosts = query(this.mRef, limitToLast(this.index), orderByKey());
     onChildAdded(this.recentPosts, (data) => {
