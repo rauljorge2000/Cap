@@ -28,7 +28,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {}
 
-  public out(){
+  public signOut(){
     this.auth.signOutOfGoogle();
     this.router.navigate(['home']);
   }  
@@ -41,9 +41,25 @@ export class ChatComponent implements OnInit {
   }
 
   public getDate(){
-    let dateString = new Date().getFullYear() + "_" + new Date().getMonth() + "_" + 
-                       new Date().getDate() + " " + new Date().getHours() + ":" + 
-                       new Date().getMinutes() + ":" + new Date().getSeconds();
+    let mo = new Date().getMonth();
+    mo += 1;
+    let da = new Date().getDate();
+    let ho = new Date().getHours();
+    let mi = new Date().getMinutes();
+    let se = new Date().getSeconds();
+    let month = "";
+    let day = "";
+    let hours = "";
+    let minutes = "";
+    let seconds = "";
+    if(mo.toString().length == 2) {month = mo.toString()} else {month = "0" + mo.toString()}
+    if(da.toString().length == 2) {day = da.toString()} else {day = "0" + da.toString()}
+    if(ho.toString().length == 2) {hours = ho.toString()} else {hours = "0" + ho.toString()}
+    if(mi.toString().length == 2) {minutes = mi.toString()} else {minutes = "0" + mi.toString()}
+    if(se.toString().length == 2) {seconds = se.toString()} else {seconds = "0" + se.toString()}
+
+    let dateString = new Date().getFullYear() + "_" + month + "_" + day + " " + 
+                                              hours + ":" + minutes + ":" + seconds;
     return dateString;
   }
 
@@ -58,7 +74,7 @@ export class ChatComponent implements OnInit {
         date: dateString,
         location: (await this.gService.getCurrentPosition())
       };
-      this.mService.writeMessage(this.block); //getAuth().currentUser.displayName, this.message, new Date());
+      this.mService.writeMessage(this.block);
       this.message = "";
     }
   }

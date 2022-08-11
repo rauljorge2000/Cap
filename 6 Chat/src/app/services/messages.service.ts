@@ -36,7 +36,6 @@ export class MessagesService {
       this.list.push([data.val().name, data.val().message, data.key, data.val().location]);
     });
     this.index += 10;
-    console.log(this.list);
   }
 
    // public loadData() {

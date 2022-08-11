@@ -3,4 +3,5 @@ export interface Minterface {
     message: string;
     date?: any;
     location?: any;
+    image?: any;
 }

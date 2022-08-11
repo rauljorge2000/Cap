@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanDeactivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateChild, CanDeactivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { getAuth } from 'firebase/auth';
 import { Observable } from 'rxjs';
 import { AuthService } from './services/auth.service';
@@ -21,5 +21,4 @@ export class GuardianGuard implements CanActivateChild {
     }
     return true;
   }
-  
 }

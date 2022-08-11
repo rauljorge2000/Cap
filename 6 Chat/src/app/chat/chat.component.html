@@ -3,7 +3,7 @@
     <ion-title>
       <div class="divTitle">
         <span>Chat</span>
-      <ion-icon name="log-out-outline" (click)="out()"></ion-icon>
+      <ion-icon name="log-out-outline" (click)="signOut()"></ion-icon>
       </div>
     </ion-title>
   </ion-toolbar>
@@ -26,7 +26,7 @@
         <div [ngClass]="{'mRight': l[0] == auth.auth.currentUser.displayName,
                         'mLeft' : l[0] !== auth.auth.currentUser.displayName }">
           <!-- Name -->
-          <p class="mP">{{l[0]}}:</p>
+          <p class="mP">{{l[0]}}</p>
           <!-- Location -->
           <p class="mP">({{l[3]}})</p>
           <!-- Message -->

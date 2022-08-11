@@ -12,7 +12,7 @@ export class CameraService {
 
   public async takePicture() {
     const image = await Camera.getPhoto({
-      quality: 90,
+      quality: 100,
       allowEditing: true,
       resultType: CameraResultType.Uri
     });
