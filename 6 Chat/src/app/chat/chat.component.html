@@ -3,7 +3,7 @@
     <ion-title>
       <div class="divTitle">
         <span>Chat</span>
-      <ion-icon name="log-out-outline" (click)="out()"></ion-icon>  
+      <ion-icon name="log-out-outline" (click)="out()"></ion-icon>
       </div>
     </ion-title>
   </ion-toolbar>
@@ -19,14 +19,21 @@
       loadingText="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  
+
   <!-- <ion-list> -->
-    <div class="cDiv">l
-      <div *ngFor="let l of mService.list">
+    <div class="cDiv">
+      <div class="lDiv" *ngFor="let l of mService.list">
         <div [ngClass]="{'mRight': l[0] == auth.auth.currentUser.displayName,
                         'mLeft' : l[0] !== auth.auth.currentUser.displayName }">
+          <!-- Name -->
           <p class="mP">{{l[0]}}:</p>
+          <!-- Location -->
+          <p class="mP">({{l[3]}})</p>
+          <!-- Message -->
           <p class="mSpan">{{l[1]}}</p>
+          <!-- Image -->
+          <!-- <img id="imageElement" src=""> -->
+          <!-- Time -->
           <!-- <span class="mP">{{l[2]}}</span> -->
         </div>
       </div>
@@ -36,10 +43,10 @@
 
 
 <div class="iANDb">
-  <ion-icon size="large" name="camera"></ion-icon>
-  <input type="text" name="message" 
-        [(ngModel)]="message" 
-        (keyup.enter)="sendMessage()" 
+  <ion-icon size="large" name="camera" (click)="getPicture()"></ion-icon>
+  <input type="text" name="message"
+        [(ngModel)]="message"
+        (keyup.enter)="sendMessage()"
         placeholder="Write a message">
   <button (click)="sendMessage()">Send</button>
-</div> 
+</div>

@@ -20,25 +20,31 @@ ion-title{
     width:100%;
 }
 
+.lDiv{
+    width: 100%;
+    display: inline-block;
+}
+
 .mRight{
     background-color: rgb(100, 141, 252);
     border-radius: 5px;
-    margin: 5px;
-    // width: max-content;
-    max-width: 95%;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    width: max-content;
+    max-width: 75%;
     padding: 10px;
-    margin-left: 50%;
     text-align: right;
+    float: right;
 }
 
 .mLeft{
     background-color: rgb(251, 87, 87);
     border-radius: 5px;
-    margin: 5px;
-    // width: max-content;
-    max-width: 95%;
+    margin-left: 10px;
+    margin-bottom: 4px;    
+    width: max-content;
+    max-width: 75%;
     padding: 10px;
-    margin-right: 50%;
     text-align: left;
 }
 

@@ -1,5 +1,6 @@
 export interface Minterface {
     name: string;
     message: string;
-    date?: Date;
+    date?: any;
+    location?: any;
 }

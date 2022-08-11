@@ -8,6 +8,8 @@ import { Database, ref, set, getDatabase, onChildAdded, query, limitToLast,
 
 export class MessagesService {
 
+  @ViewChild('cDiv') myScrollContainer: ElementRef;
+
   private db = getDatabase();
   private mRef = ref(this.db, '/messages');
   private list: any[] = [];
@@ -18,15 +20,26 @@ export class MessagesService {
     this.loadData();
   }
 
-  public writeMessage(block) {
-    set(ref(this.database, 'messages/' + block.date), {
+  public async writeMessage(block) {
+    await set(ref(this.database, 'messages/' + block.date), {
       name: block.name,
       message: block.message,
-      date : block.date,
-    });
+      date: block.date,
+      location: block.location
+    });   
   }
 
-  // public loadData() {
+  public loadData() {
+    this.list = [];
+    this.recentPosts = query(this.mRef, limitToLast(this.index), orderByKey());
+    onChildAdded(this.recentPosts, (data) => {
+      this.list.push([data.val().name, data.val().message, data.key, data.val().location]);
+    });
+    this.index += 10;
+    console.log(this.list);
+  }
+
+   // public loadData() {
   //   const db = getDatabase();
   //   const mRef = ref(db, '/messages');
   //   this.index += 10;
@@ -38,14 +51,4 @@ export class MessagesService {
   //       // console.log('c ' + this.index);
   //     });
   // }
-
-  public loadData() {
-    this.list = [];
-    this.recentPosts = query(this.mRef, limitToLast(this.index), orderByKey());
-    onChildAdded(this.recentPosts, (data) => {
-      this.list.push([data.val().name, data.val().message, data.key]);
-    });
-    this.index += 10;
-    console.log(this.list);
-  }
 }
