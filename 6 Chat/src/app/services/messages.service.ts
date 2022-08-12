@@ -8,11 +8,9 @@ import { Database, ref, set, getDatabase, onChildAdded, query, limitToLast,
 
 export class MessagesService {
 
-  @ViewChild('cDiv') myScrollContainer: ElementRef;
-
   private db = getDatabase();
   private mRef = ref(this.db, '/messages');
-  private list: any[] = [];
+  public list: any[] = [];
   private index = 10;
   private recentPosts;
 

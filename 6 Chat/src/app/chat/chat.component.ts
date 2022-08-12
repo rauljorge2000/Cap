@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 //service
@@ -9,6 +9,8 @@ import { CameraService } from '../services/camera.service';
 
 import { Minterface } from '../chat/minterface';
 import { getAuth } from 'firebase/auth';
+// import { EventEmitter } from 'stream';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -17,16 +19,36 @@ import { getAuth } from 'firebase/auth';
   styleUrls: ['./chat.component.scss'],
 })
 
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewChecked {
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
-  private message: string = "";
-  private block: Minterface;
+  public message: string = "";
+  public block: Minterface;
 
-  constructor(private router : Router, private auth: AuthService, 
+  constructor(private router : Router, public auth: AuthService, 
               public mService: MessagesService, private gService: GeolocationService,
-              public cService: CameraService) {  }
+              public cService: CameraService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.scrollToBottom();
+
+  }
+
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }                 
+  }
+
+  scrollToTop(): void {
+    try {
+        this.myScrollContainer.nativeElement.scrollTop = 0;
+    } catch(err) { }                 
+  }
 
   public signOut(){
     this.auth.signOutOfGoogle();
@@ -74,7 +96,7 @@ export class ChatComponent implements OnInit {
         date: dateString,
         location: (await this.gService.getCurrentPosition())
       };
-      this.mService.writeMessage(this.block);
+      await this.mService.writeMessage(this.block);
       this.message = "";
     }
   }

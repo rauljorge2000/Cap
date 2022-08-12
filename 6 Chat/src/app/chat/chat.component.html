@@ -12,16 +12,16 @@
 <h1>Chat Room</h1>
 
 
-<ion-content>
+<ion-content >
   <ion-infinite-scroll position="top" threshold="10px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
       loadingText="Loading more data...">
+      
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
-  <!-- <ion-list> -->
-    <div class="cDiv">
+    <div class="cDiv" #scrollMe style="overflow: scroll; height: xyz;" >
       <div class="lDiv" *ngFor="let l of mService.list">
         <div [ngClass]="{'mRight': l[0] == auth.auth.currentUser.displayName,
                         'mLeft' : l[0] !== auth.auth.currentUser.displayName }">
@@ -38,7 +38,6 @@
         </div>
       </div>
     </div>
-  <!-- </ion-list> -->
 </ion-content>
 
 

@@ -18,7 +18,7 @@ import { FirebaseApp } from '@angular/fire/app';
 export class AuthService {
 
   public auth = getAuth();
-  private provider = new GoogleAuthProvider();
+  public provider = new GoogleAuthProvider();
   // public readonly user: Observable<User | null>;
   userData?: User;
 
