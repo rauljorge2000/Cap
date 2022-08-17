@@ -15,11 +15,10 @@ export class MessagesService {
   private recentPosts;
 
   constructor(private database: Database) { 
-    // this.loadData();
     this.list = [];
     this.recentPosts = query(this.mRef, limitToLast(this.index), orderByKey());
     onChildAdded(this.recentPosts, (data) => {
-      this.list.push([data.val().name, data.val().message, data.key, data.val().location]);
+      this.list.push([data.val().name, data.val().message, data.key, data.val().location, data.val().image]);
     });
     this.index += 10;
   }
@@ -29,7 +28,9 @@ export class MessagesService {
       name: block.name,
       message: block.message,
       date: block.date,
-      location: block.location
+      location: block.location,
+      isImage: block.isImage,
+      imagePath: block.imagePath,
     });   
   }
 
@@ -38,21 +39,9 @@ export class MessagesService {
     this.list = [];
     this.recentPosts = query(this.mRef, limitToLast(this.index), orderByKey());
     onChildAdded(this.recentPosts, (data) => {
-      this.list.push([data.val().name, data.val().message, data.key, data.val().location]);
+      this.list.push([data.val().name, data.val().message, data.key, data.val().location, data.val().isImage, data.val().imagePath]);
     });
     this.index += 10;
   }
 
-   // public loadData() {
-  //   const db = getDatabase();
-  //   const mRef = ref(db, '/messages');
-  //   this.index += 10;
-  //   this.list = [];
-  //   const recentPostsRef = query(mRef, limitToLast(this.index), orderByKey());
-  //     onChildAdded(recentPostsRef, (data) => {
-  //       // console.log( data.val().message, data.val().name, data.key);
-  //       this.list.push([data.val().name, data.val().message, data.key]);
-  //       // console.log('c ' + this.index);
-  //     });
-  // }
 }

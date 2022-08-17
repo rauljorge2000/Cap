@@ -1,7 +1,8 @@
 export interface Minterface {
     name: string;
     message: string;
-    date?: any;
-    location?: any;
-    image?: any;
+    date: string;
+    location?: Location;
+    isImage?: Boolean;
+    imagePath?: string;
 }

@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, AfterContentInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 //service
@@ -19,7 +19,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./chat.component.scss'],
 })
 
-export class ChatComponent implements OnInit, AfterViewChecked {
+export class ChatComponent implements OnInit, AfterContentInit, AfterViewChecked, AfterViewChecked {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   public message: string = "";
@@ -29,9 +29,40 @@ export class ChatComponent implements OnInit, AfterViewChecked {
               public mService: MessagesService, private gService: GeolocationService,
               public cService: CameraService) { }
 
-  ngOnInit() {
-    this.scrollToBottom();
+  ngOnInit() {      
+    //   const scroll$ = new Observable(scrollsSuscriber => {
+    //   if(this.myScrollContainer.nativeElement.scrollTop < 10 ) {
+    //     scrollsSuscriber.next();
+    //   }
+    // });
+    // const observer = {
+    //   next: () => {
+    //     this.loadData();
+    //     this.scrollToBottom();
+    //     console.log('Scroll');
+    //   },
+    //   error: err => console.log(`Error occurried: ${err}`),
+    //   complete: () => console.log('No more data')
+    // }
+    // const sub = scroll$.subscribe(observer);
+  }
 
+  ngAfterContentInit() {
+    const scroll$ = new Observable(scrollsSuscriber => {
+      if(this.myScrollContainer.nativeElement.scrollTop < 10 ) {
+        scrollsSuscriber.next();
+      }
+    });
+    const observer = {
+      next: () => {
+        this.loadData();
+        this.scrollToTop();
+        console.log('Scroll');
+      },
+      error: err => console.log(`Error occurried: ${err}`),
+      complete: () => console.log('No more data')
+    }
+    const sub = scroll$.subscribe(observer);
   }
 
   ngAfterViewChecked(): void {
@@ -55,9 +86,10 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.router.navigate(['home']);
   }  
 
-  public loadData($event) {
+  public loadData() {
+    // $event
     setTimeout(() => {
-      $event.target.complete();
+      // $event.target.complete();
       this.mService.loadData();
     }, 1000);
   }
@@ -80,7 +112,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     if(mi.toString().length == 2) {minutes = mi.toString()} else {minutes = "0" + mi.toString()}
     if(se.toString().length == 2) {seconds = se.toString()} else {seconds = "0" + se.toString()}
 
-    let dateString = new Date().getFullYear() + "_" + month + "_" + day + " " + 
+    let dateString = new Date().getFullYear() + "_" + month + "_" + day + "-" + 
                                               hours + ":" + minutes + ":" + seconds;
     return dateString;
   }
@@ -94,23 +126,27 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         name: getAuth().currentUser.displayName,
         message: this.message,
         date: dateString,
-        location: (await this.gService.getCurrentPosition())
+        location: (await this.gService.getCurrentPosition()),
+        isImage: false,
+        imagePath: ""
       };
       await this.mService.writeMessage(this.block);
       this.message = "";
     }
   }
 
-  public async getPicture() {
-    await this.cService.takePicture();
+  public async sendPicture() {
+    await this.cService.takePicture().then(() => { }). catch((error) => console.log(error));;
     let dateString = this.getDate();
       this.block = {
         name: getAuth().currentUser.displayName,
-        message: this.message,
+        message: "",
         date: dateString,
-        location: (await this.gService.getCurrentPosition())
+        location: (await this.gService.getCurrentPosition()),
+        isImage: true,
+        imagePath: await this.cService.imgRes
       };
-      this.mService.writeMessage(this.block); //getAuth().currentUser.displayName, this.message, new Date());
+      this.mService.writeMessage(this.block); 
       this.message = "";  
     }
 

@@ -19,12 +19,10 @@ export class AuthService {
 
   public auth = getAuth();
   public provider = new GoogleAuthProvider();
-  // public readonly user: Observable<User | null>;
   userData?: User;
 
   constructor(private route : Router, private app: FirebaseApp) {
     app = initializeApp(environment.firebaseConfig);
-    // this.user = authState(this.auth);
     authState(this.auth).subscribe((u) => {
       this.userData = u || null;
     });
