@@ -11,7 +11,7 @@ export class MessagesService {
   private db = getDatabase();
   private mRef = ref(this.db, '/messages');
   public list: any[] = [];
-  private index = 10;
+  private index = 1;
   private recentPosts;
 
   constructor(private database: Database) { 

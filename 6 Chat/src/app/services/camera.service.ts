@@ -36,19 +36,6 @@ export class CameraService {
     this.imgRes = await getDownloadURL(storageRef);
 
     return this.imgRes;
-
-
-
-    // this.picture = image.dataUrl;
-
-    // image.webPath will contain a path that can be set as an image src.
-    // You can access the original file using image.path, which can be
-    // passed to the Filesystem API to read the raw data of the image,
-    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-    // var imageUrl = image.webPath;
-
-    // Can be set to the src of an image now
-    // imageElement.src = imageUrl;
     
   };
 
@@ -56,7 +43,6 @@ export class CameraService {
     // Fetch the photo, read as a blob, then convert to base64 format
     const response = await fetch(photo.webPath!);
     const blob = await response.blob();
-  
     return await this.convertBlobToBase64(blob) as string;
   }
 
@@ -68,7 +54,6 @@ export class CameraService {
     };
     reader.readAsDataURL(blob);
   });
-
 }
 
 

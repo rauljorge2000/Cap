@@ -20,76 +20,63 @@ import { Observable } from 'rxjs';
 })
 
 export class ChatComponent implements OnInit, AfterContentInit, AfterViewChecked, AfterViewChecked {
-  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  // @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   public message: string = "";
   public block: Minterface;
 
   constructor(private router : Router, public auth: AuthService, 
               public mService: MessagesService, private gService: GeolocationService,
-              public cService: CameraService) { }
+              public cService: CameraService) { 
+                this.mService.loadData();
+              }
 
-  ngOnInit() {      
-    //   const scroll$ = new Observable(scrollsSuscriber => {
-    //   if(this.myScrollContainer.nativeElement.scrollTop < 10 ) {
-    //     scrollsSuscriber.next();
-    //   }
-    // });
-    // const observer = {
-    //   next: () => {
-    //     this.loadData();
-    //     this.scrollToBottom();
-    //     console.log('Scroll');
-    //   },
-    //   error: err => console.log(`Error occurried: ${err}`),
-    //   complete: () => console.log('No more data')
-    // }
-    // const sub = scroll$.subscribe(observer);
+  ngOnInit() { 
   }
 
   ngAfterContentInit() {
-    const scroll$ = new Observable(scrollsSuscriber => {
-      if(this.myScrollContainer.nativeElement.scrollTop < 10 ) {
-        scrollsSuscriber.next();
-      }
-    });
-    const observer = {
-      next: () => {
-        this.loadData();
-        this.scrollToTop();
-        console.log('Scroll');
-      },
-      error: err => console.log(`Error occurried: ${err}`),
-      complete: () => console.log('No more data')
-    }
-    const sub = scroll$.subscribe(observer);
+  //   const scroll$ = new Observable(scrollsSuscriber => {
+  //     if(this.myScrollContainer.nativeElement.scrollTop < 10 ) {
+  //       scrollsSuscriber.next();
+  //     }
+  //   });
+  //   const observer = {
+  //     next: () => {
+  //       this.loadData();
+  //       this.scrollToTop();
+  //       console.log('Scroll');
+  //     },
+  //     error: err => console.log(`Error occurried: ${err}`),
+  //     complete: () => console.log('No more data')
+  //   }
+  //   const sub = scroll$.subscribe(observer);
   }
 
   ngAfterViewChecked(): void {
-    this.scrollToBottom();
+  //   this.scrollToBottom();
   }
 
-  scrollToBottom(): void {
-    try {
-        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch(err) { }                 
-  }
+  // scrollToBottom(): void {
+  //   try {
+  //       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+  //   } catch(err) { }                 
+  // }
 
-  scrollToTop(): void {
-    try {
-        this.myScrollContainer.nativeElement.scrollTop = 0;
-    } catch(err) { }                 
-  }
+  // scrollToTop(): void {
+  //   try {
+  //       this.myScrollContainer.nativeElement.scrollTop = 0;
+  //   } catch(err) { }                 
+  // }
 
   public signOut(){
     this.auth.signOutOfGoogle();
     this.router.navigate(['home']);
   }  
 
-  public loadData() {
+  public loadData($event) {
     // $event
     setTimeout(() => {
-      // $event.target.complete();
+      $event.target.complete();
       this.mService.loadData();
     }, 1000);
   }
