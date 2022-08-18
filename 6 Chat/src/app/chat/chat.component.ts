@@ -37,7 +37,7 @@ export class ChatComponent implements OnInit {
         }
       })
     , 10});
-    setTimeout( () => { this.scrollToBottom()}, 1250);
+    setTimeout( () => { this.scrollToBottom()}, 1500);
   }
 
   scrollToBottom(): void {
@@ -112,6 +112,6 @@ export class ChatComponent implements OnInit {
       };
       await this.mService.writeMessage(this.block); 
       this.message = "";  
-      setTimeout( () => { this.scrollToBottom()}, 200);
+      setTimeout( () => { this.scrollToBottom()}, 400);
     }
 }
