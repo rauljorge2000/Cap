@@ -11,50 +11,41 @@
 
 <h1>Chat Room</h1>
 
-<ion-content >
-  <ion-infinite-scroll position="top" threshold="10px" (ionInfinite)="loadData($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">      
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
 
 
-  <div class="cDiv" #scrollMe style="overflow: scroll; height: xyz;">
-    <div class="lDiv" *ngFor="let l of mService.list">
+<div class="cDiv" #scrollMe style="overflow: scroll; height: xyz;">
+  <div class="lDiv" *ngFor="let l of mService.list">
         
-      <div *ngIf="!l[4]">
-        <div [ngClass]="{'mRight': l[0] == auth.auth.currentUser.displayName,
-                      'mLeft' : l[0] !== auth.auth.currentUser.displayName}">
-          <!-- Name -->
-           <p class="mP">{{l[0]}}</p>
-          <!-- Location -->
-          <p class="mP">({{l[3]}})</p>
-          <!-- Message -->
-          <p class="mSpan">{{l[1]}}</p>
-          <!-- Time -->
-          <!-- <span class="mP">{{l[2]}}</span> -->
-        </div>
+    <div *ngIf="!l[4]">
+      <div [ngClass]="{'mRight': l[0] == auth.auth.currentUser.displayName,
+                     'mLeft' : l[0] !== auth.auth.currentUser.displayName}">
+        <!-- Name -->
+         <p class="mP">{{l[0]}}</p>
+        <!-- Location -->
+        <p class="mP">({{l[3]}})</p>
+        <!-- Message -->
+        <p class="mSpan">{{l[1]}}</p>
+        <!-- Time -->
+        <!-- <span class="mP">{{l[2]}}</span> -->
       </div>
-
-      <div *ngIf="l[4]">
-        <div [ngClass]="{'mRight': l[0] == auth.auth.currentUser.displayName,
-                      'mLeft' : l[0] !== auth.auth.currentUser.displayName}">
-          <!-- Name -->
-          <p class="mP">{{l[0]}}</p>
-          <!-- Location -->
-          <p class="mP">({{l[3]}})</p>
-          <!-- Image -->
-          <img  src={{l[5]}} >
-          <!-- Time -->
-          <!-- <span class="mP">{{l[2]}}</span> -->
-        </div>
-      </div>
-
     </div>
-  </div>
 
-</ion-content>
+    <div *ngIf="l[4]">
+      <div [ngClass]="{'mRight': l[0] == auth.auth.currentUser.displayName,
+                    'mLeft' : l[0] !== auth.auth.currentUser.displayName}">
+        <!-- Name -->
+        <p class="mP">{{l[0]}}</p>
+        <!-- Location -->
+        <p class="mP">({{l[3]}})</p>
+        <!-- Image -->
+        <img  src={{l[5]}} >
+        <!-- Time -->
+        <!-- <span class="mP">{{l[2]}}</span> -->
+      </div>
+    </div>
+
+  </div>
+</div>
 
 
 

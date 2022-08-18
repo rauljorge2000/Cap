@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, AfterContentInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 //service
@@ -9,8 +9,6 @@ import { CameraService } from '../services/camera.service';
 
 import { Minterface } from '../chat/minterface';
 import { getAuth } from 'firebase/auth';
-// import { EventEmitter } from 'stream';
-import { Observable } from 'rxjs';
 
 
 @Component({
@@ -19,8 +17,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./chat.component.scss'],
 })
 
-export class ChatComponent implements OnInit, AfterContentInit, AfterViewChecked, AfterViewChecked {
-  // @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+export class ChatComponent implements OnInit {
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   public message: string = "";
   public block: Minterface;
@@ -32,53 +30,31 @@ export class ChatComponent implements OnInit, AfterContentInit, AfterViewChecked
               }
 
   ngOnInit() { 
+      setTimeout(() => {
+      this.myScrollContainer.nativeElement.addEventListener('scroll', () =>{
+        if(this.myScrollContainer.nativeElement.scrollTop == 0  ) {
+          this.loadData();
+        }
+      })
+    , 10});
+    setTimeout( () => { this.scrollToBottom()}, 1250);
   }
 
-  ngAfterContentInit() {
-  //   const scroll$ = new Observable(scrollsSuscriber => {
-  //     if(this.myScrollContainer.nativeElement.scrollTop < 10 ) {
-  //       scrollsSuscriber.next();
-  //     }
-  //   });
-  //   const observer = {
-  //     next: () => {
-  //       this.loadData();
-  //       this.scrollToTop();
-  //       console.log('Scroll');
-  //     },
-  //     error: err => console.log(`Error occurried: ${err}`),
-  //     complete: () => console.log('No more data')
-  //   }
-  //   const sub = scroll$.subscribe(observer);
+  scrollToBottom(): void {
+    try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch(err) { console.log(err) }                 
   }
-
-  ngAfterViewChecked(): void {
-  //   this.scrollToBottom();
-  }
-
-  // scrollToBottom(): void {
-  //   try {
-  //       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-  //   } catch(err) { }                 
-  // }
-
-  // scrollToTop(): void {
-  //   try {
-  //       this.myScrollContainer.nativeElement.scrollTop = 0;
-  //   } catch(err) { }                 
-  // }
 
   public signOut(){
     this.auth.signOutOfGoogle();
     this.router.navigate(['home']);
   }  
 
-  public loadData($event) {
-    // $event
+  public loadData() {
     setTimeout(() => {
-      $event.target.complete();
       this.mService.loadData();
-    }, 1000);
+    }, 10);
   }
 
   public getDate(){
@@ -119,6 +95,7 @@ export class ChatComponent implements OnInit, AfterContentInit, AfterViewChecked
       };
       await this.mService.writeMessage(this.block);
       this.message = "";
+      this.scrollToBottom();
     }
   }
 
@@ -133,23 +110,8 @@ export class ChatComponent implements OnInit, AfterContentInit, AfterViewChecked
         isImage: true,
         imagePath: await this.cService.imgRes
       };
-      this.mService.writeMessage(this.block); 
+      await this.mService.writeMessage(this.block); 
       this.message = "";  
+      setTimeout( () => { this.scrollToBottom()}, 200);
     }
-
-  // public async sendPhoto() {
-  //   if(this.message == "") {
-  //     alert("No se puede enviar un mensaje sin texto.");
-  //   } else {
-  //     let dateString = this.getDate();
-  //     this.block = {
-  //       name: getAuth().currentUser.displayName,
-  //       message: this.message,
-  //       date: dateString,
-  //       location: (await this.gService.getCurrentPosition())
-  //     };
-  //     this.mService.writeMessage(this.block); //getAuth().currentUser.displayName, this.message, new Date());
-  //     this.message = "";
-  //   }
-  // }
 }
