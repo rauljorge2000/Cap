@@ -15,6 +15,8 @@ export class HomeComponent implements OnInit {
 
   async login() {
      await this.auth.signInWithGoogle();
-     this.router.navigate(['chat']);
+     setTimeout(() => {
+      this.router.navigate(['chat']);
+     }, 100);
   }
 }
